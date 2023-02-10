@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Wgpu Multithread</title>
+</head>
+
+<body>
+    <script src="./wgpu_multithread.js"></script>
+    <script>
+        const { run } = wasm_bindgen;
+        async function main() {
+            await wasm_bindgen('./wgpu_multithread_bg.wasm');
+            await run();
+        }
+        main();
+    </script>
+    <p>wgpu multithread</p>
+    <canvas id="canvas" width="1024" height="900"></canvas>
+    <!-- <script src="./coi-serviceworker.js"></script> -->
+</body>
+
+</html>

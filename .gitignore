@@ -1,0 +1,7 @@
+/target
+/Cargo.lock
+/.vscode
+/.idea
+/web/wgpu_multithread.*
+/web/wgpu_multithread_bg.*
+/web/snippets/

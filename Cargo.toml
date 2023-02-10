@@ -1,0 +1,40 @@
+[package]
+name = "wgpu-multithread"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+wgpu = { version = "0.15", features = ["webgl"] }
+winit = { version = "0.28"}
+wasm_thread = { version = "0.2" }
+wasm-bindgen = { version = "0.2" }
+wasm-bindgen-futures = { version = "0.4" }
+js-sys = { version = "0.3" }
+console_error_panic_hook = { version = "0.1.6" }
+console_log = { version = "0.2.0" }
+log = { version = "0.4" }
+
+[dependencies.web-sys]
+version = "0.3"
+features = [
+    'console',
+    'Document',
+    'Element',
+    'Node',
+    'Window',
+    'HtmlElement',
+    "HtmlInputElement",
+    "HtmlCanvasElement",
+    "MessageEvent",
+    "Worker",
+    "WorkerType",
+    "WorkerOptions",
+    "GpuCanvasContext",
+]
+
+[profile.release]
+opt-level = "s"
+debug = 1
