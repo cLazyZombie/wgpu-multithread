@@ -72,17 +72,21 @@ pub async fn run() -> Result<(), JsValue> {
 
     let surface_caps = surface.get_capabilities(&adapter);
 
-    // let config = wgpu::SurfaceConfiguration {
-    //     usage: wgpu::TextureUsages::RENDER_ATTACHMENT,
-    //     format: surface_caps.formats[0],
-    //     width: size.0,
-    //     height: size.1,
-    //     present_mode: wgpu::PresentMode::Fifo,
-    //     alpha_mode: wgpu::CompositeAlphaMode::Auto,
-    //     view_formats: vec![surface_caps.formats[0]],
-    // };
-    // surface.configure(&device, &config);
+    #[cfg(not(feature = "multithread"))]
+    {
+        let config = wgpu::SurfaceConfiguration {
+            usage: wgpu::TextureUsages::RENDER_ATTACHMENT,
+            format: surface_caps.formats[0],
+            width: size.0,
+            height: size.1,
+            present_mode: wgpu::PresentMode::Fifo,
+            alpha_mode: wgpu::CompositeAlphaMode::Auto,
+            view_formats: vec![surface_caps.formats[0]],
+        };
+        surface.configure(&device, &config);
+    }
 
+    #[cfg(feature = "multithread")]
     wasm_thread::spawn(move || {
         let config = wgpu::SurfaceConfiguration {
             usage: wgpu::TextureUsages::RENDER_ATTACHMENT,
@@ -95,6 +99,16 @@ pub async fn run() -> Result<(), JsValue> {
         };
         surface.configure(&device, &config);
     });
+    // let config = wgpu::SurfaceConfiguration {
+    //     usage: wgpu::TextureUsages::RENDER_ATTACHMENT,
+    //     format: surface_caps.formats[0],
+    //     width: size.0,
+    //     height: size.1,
+    //     present_mode: wgpu::PresentMode::Fifo,
+    //     alpha_mode: wgpu::CompositeAlphaMode::Auto,
+    //     view_formats: vec![surface_caps.formats[0]],
+    // };
+    // surface.configure(&device, &config);
 
     let f = Rc::new(RefCell::new(None));
     let g = f.clone();
