@@ -17,6 +17,8 @@ js-sys = { version = "0.3" }
 console_error_panic_hook = { version = "0.1.6" }
 console_log = { version = "0.2.0" }
 log = { version = "0.4" }
+tokio = { version = "1.5", features = ["sync"] }
+gloo-timers = { version = "0.2.6", features = ["futures"] }
 
 [dependencies.web-sys]
 version = "0.3"
